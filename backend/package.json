@@ -1,0 +1,31 @@
+{
+  "name": "wal-backed-kv-store",
+  "version": "1.0.0",
+  "description": "A WAL-backed key-value storage engine with crash recovery and HTTP APIs",
+  "keywords": [
+    "Key-Value",
+    "Store",
+    "In-Memory",
+    "Database",
+    "Crash",
+    "Recovery"
+  ],
+  "homepage": "https://github.com/niks-nikhil-anand/wal-backed-kv-store#readme",
+  "bugs": {
+    "url": "https://github.com/niks-nikhil-anand/wal-backed-kv-store/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niks-nikhil-anand/wal-backed-kv-store.git"
+  },
+  "license": "ISC",
+  "author": "Nikhil Anand",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
