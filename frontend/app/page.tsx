@@ -56,14 +56,8 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-neutral-900 text-neutral-100 p-8 font-sans">
+    <div className="min-h-[calc(100vh-9rem)] text-neutral-100 p-8 font-sans">
       <div className="max-w-4xl mx-auto space-y-8">
-        <header className="flex items-center justify-between border-b border-neutral-800 pb-6">
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-emerald-400 bg-clip-text text-transparent">
-            ScaleDB <span className="text-neutral-500 text-lg font-normal ml-2">KV Store Explorer</span>
-          </h1>
-          <div className="text-xs font-mono text-neutral-500">Status: <span className="text-emerald-400">● Live</span></div>
-        </header>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Write Section */}
