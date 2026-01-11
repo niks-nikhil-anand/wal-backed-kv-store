@@ -71,12 +71,12 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-9rem)] text-neutral-100 p-8 font-sans">
+    <div className="min-h-[calc(100vh-9rem)] text-neutral-900 dark:text-neutral-100 p-8 font-sans">
       <div className="max-w-4xl mx-auto space-y-8">
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Write Section */}
-          <section className="bg-neutral-800/50 rounded-xl p-6 border border-neutral-700/50 backdrop-blur-sm">
+          <section className="bg-white/60 dark:bg-neutral-800/50 rounded-xl p-6 border border-neutral-200 dark:border-neutral-700/50 backdrop-blur-sm">
             <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-blue-400">
               <span className="text-2xl">✍️</span> Write Data
             </h2>
@@ -88,7 +88,7 @@ export default function Home() {
                   value={key}
                   onChange={(e) => setKey(e.target.value)}
                   placeholder="e.g., user:101"
-                  className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all"
+                  className="w-full bg-white border border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all"
                 />
               </div>
               <div>
@@ -98,7 +98,7 @@ export default function Home() {
                   onChange={(e) => setValue(e.target.value)}
                   placeholder='e.g., {"name": "Alice", "role": "admin"}'
                   rows={4}
-                  className="w-full bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all font-mono text-sm"
+                  className="w-full bg-white border border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 outline-none transition-all font-mono text-sm"
                 />
               </div>
               <button
@@ -111,7 +111,7 @@ export default function Home() {
           </section>
 
           {/* Read Section */}
-          <section className="bg-neutral-800/50 rounded-xl p-6 border border-neutral-700/50 backdrop-blur-sm flex flex-col">
+          <section className="bg-white/60 dark:bg-neutral-800/50 rounded-xl p-6 border border-neutral-200 dark:border-neutral-700/50 backdrop-blur-sm flex flex-col">
             <h2 className="text-xl font-semibold mb-6 flex items-center gap-2 text-emerald-400">
               <span className="text-2xl">🔍</span> Read Data
             </h2>
@@ -124,7 +124,7 @@ export default function Home() {
                     value={queryKey}
                     onChange={(e) => setQueryKey(e.target.value)}
                     placeholder="Enter key to retrieve..."
-                    className="flex-1 bg-neutral-900 border border-neutral-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
+                    className="flex-1 bg-white border border-neutral-300 dark:bg-neutral-900 dark:border-neutral-700 rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 outline-none transition-all"
                   />
                   <button
                     type="submit"
@@ -138,7 +138,7 @@ export default function Home() {
 
             <div className="flex-1 flex flex-col">
               <label className="block text-sm text-neutral-400 mb-1">Result</label>
-              <div className="flex-1 bg-neutral-950 border border-neutral-800 rounded-lg p-4 font-mono text-sm overflow-auto text-emerald-100/90 shadow-inner">
+              <div className="flex-1 bg-neutral-50 border border-neutral-200 dark:bg-neutral-950 dark:border-neutral-800 rounded-lg p-4 font-mono text-sm overflow-auto text-emerald-900 dark:text-emerald-100/90 shadow-inner">
                 {result ? (
                   <pre>{result}</pre>
                 ) : (
@@ -150,10 +150,10 @@ export default function Home() {
         </div>
 
         {/* Logs Section */}
-        <section className="bg-neutral-950 rounded-xl border border-neutral-800 p-4 h-48 overflow-hidden flex flex-col">
+        <section className="bg-neutral-50 dark:bg-neutral-950 rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 h-48 overflow-hidden flex flex-col">
           <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">Activity Log</h3>
           <div className="flex-1 overflow-y-auto font-mono text-xs space-y-1.5 custom-scrollbar">
-            {logs.length === 0 && <div className="text-neutral-700">Waiting for interaction...</div>}
+            {logs.length === 0 && <div className="text-neutral-500 dark:text-neutral-700">Waiting for interaction...</div>}
             {logs.map((log, i) => (
               <div key={i} className="border-l-2 border-neutral-800 pl-3">
                 <span className={log.includes('ERROR') ? 'text-red-400' : 'text-neutral-300'}>
