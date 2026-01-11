@@ -28,13 +28,12 @@ export function Navbar() {
                         <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                         <span className="text-xs text-neutral-400 font-mono">System Operational</span>
                     </div>
-
-                    <Button variant="ghost" size="icon" className="text-neutral-400 hover:text-white">
+                   <Link href={"https://github.com/niks-nikhil-anand/wal-backed-kv-store"}>
+                   <Button variant="ghost" size="icon" className="text-neutral-400 hover:text-white">
                         <Github className="h-4 w-4" />
                     </Button>
-                    <Button variant="outline" size="sm" className="hidden sm:inline-flex border-neutral-700 bg-neutral-900 text-neutral-300 hover:bg-neutral-800 hover:text-white">
-                        Connect Wallet
-                    </Button>
+                   </Link>
+                    
                 </div>
             </div>
         </nav>
