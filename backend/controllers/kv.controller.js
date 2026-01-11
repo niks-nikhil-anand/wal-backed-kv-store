@@ -7,8 +7,11 @@ export const setKey = (req, res) => {
   if (!key || value === undefined) {
     return res.status(400).json({ error: 'Key and value are required' });
   }
+  console.log(key)
+  console.log(value)
 
   const result = store.set(key, value);
+  console.log(result)
   console.log(`SET: ${key} = ${JSON.stringify(value)}`);
   res.status(201).json({ message: 'Key set successfully', ...result });
 };
