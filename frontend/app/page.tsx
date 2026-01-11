@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Home() {
   const [key, setKey] = useState('');
@@ -18,21 +19,32 @@ export default function Home() {
     if (!key || !value) return;
 
     try {
-      const res = await fetch('http://localhost:4000/set', {
+      // Attempt to parse the value as JSON; fall back to string if parsing fails
+      let parsedValue;
+      try {
+        parsedValue = JSON.parse(value);
+      } catch {
+        parsedValue = value;
+      }
+
+      const res = await fetch('http://localhost:4000/api/kv', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ key, value }),
+        body: JSON.stringify({ key, value: parsedValue }),
       });
       const data = await res.json();
       if (res.ok) {
         addLog(`SUCCESS: Set key "${key}"`);
+        toast.success(data.message || `Key "${key}" set`);
         setKey('');
         setValue('');
       } else {
         addLog(`ERROR: ${data.error}`);
+        toast.error(data.error || 'Failed to set key');
       }
     } catch (err) {
       addLog(`ERROR: Failed to connect to backend`);
+      toast.error('Failed to connect to backend');
     }
   };
 
@@ -41,17 +53,20 @@ export default function Home() {
     if (!queryKey) return;
 
     try {
-      const res = await fetch(`http://localhost:4000/get/${queryKey}`);
+      const res = await fetch(`http://localhost:4000/api/kv/${encodeURIComponent(queryKey)}`);
       const data = await res.json();
       if (res.ok) {
         setResult(JSON.stringify(data.value, null, 2));
         addLog(`SUCCESS: Retrieved key "${queryKey}"`);
+        toast.success(`Retrieved "${queryKey}"`);
       } else {
         setResult(null);
         addLog(`ERROR: ${data.error}`);
+        toast.error(data.error || 'Failed to retrieve key');
       }
     } catch (err) {
       addLog(`ERROR: Failed to connect to backend`);
+      toast.error('Failed to connect to backend');
     }
   };
 
