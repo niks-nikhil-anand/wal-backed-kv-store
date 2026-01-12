@@ -1,6 +1,4 @@
 'use client';
-
-import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Database, Activity, Github, Settings, Linkedin } from 'lucide-react';
@@ -18,9 +16,8 @@ export function Navbar() {
                         <span className="hidden font-bold text-neutral-900 dark:text-white sm:inline-block">ScaleDB</span>
                     </Link>
                     <div className="hidden md:flex gap-6 items-center text-sm font-medium text-neutral-600 dark:text-neutral-400">
-                        <Link href="/" className="hover:text-neutral-900 dark:hover:text-white transition-colors">Explorer</Link>
+                        <Link href="/" className="hover:text-neutral-900 dark:hover:text-white transition-colors">Home</Link>
                         <Link href="#" className="hover:text-neutral-900 dark:hover:text-white transition-colors">Documentation</Link>
-                        <Link href="#" className="hover:text-neutral-900 dark:hover:text-white transition-colors">API Reference</Link>     
                     </div>
                 </div>
 
@@ -30,10 +27,10 @@ export function Navbar() {
                         <span className="text-xs text-neutral-700 dark:text-neutral-300 font-mono">System Operational</span>
                     </div>
                     <div className="flex items-center gap-2">                        <ThemeToggle />                        <a href="https://github.com/niks-nikhil-anand/wal-backed-kv-store" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository">
-                            <Button variant="ghost" size="icon" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
-                                <Github className="h-4 w-4" />
-                            </Button>
-                        </a>
+                        <Button variant="ghost" size="icon" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
+                            <Github className="h-4 w-4" />
+                        </Button>
+                    </a>
                         <a href="https://www.linkedin.com/in/nikhilanand86/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
                             <Button variant="ghost" size="icon" className="text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white">
                                 <Linkedin className="h-4 w-4" />
