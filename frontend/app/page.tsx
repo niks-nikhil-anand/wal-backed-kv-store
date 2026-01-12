@@ -150,13 +150,16 @@ export default function Home() {
         </div>
 
         {/* Logs Section */}
-        <section className="bg-neutral-50 dark:bg-neutral-950 rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 h-48 overflow-hidden flex flex-col">
-          <h3 className="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">Activity Log</h3>
+        <section className="bg-neutral-50 dark:bg-neutral-950 rounded-xl border border-neutral-200 dark:border-neutral-800 p-4 h-48 overflow-hidden flex flex-col transition-colors duration-200">
+          <h3 className="text-xs font-bold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider mb-3">Activity Log</h3>
           <div className="flex-1 overflow-y-auto font-mono text-xs space-y-1.5 custom-scrollbar">
-            {logs.length === 0 && <div className="text-neutral-500 dark:text-neutral-700">Waiting for interaction...</div>}
+            {logs.length === 0 && <div className="text-neutral-500 dark:text-neutral-400">Waiting for interaction...</div>}
             {logs.map((log, i) => (
-              <div key={i} className="border-l-2 border-neutral-800 pl-3">
-                <span className={log.includes('ERROR') ? 'text-red-400' : 'text-neutral-300'}>
+              <div
+                key={i}
+                className={`border-l-2 pl-3 ${log.includes('ERROR') ? 'border-red-500 dark:border-red-400' : 'border-neutral-200 dark:border-neutral-800'}`}
+              >
+                <span className={log.includes('ERROR') ? 'text-red-600 dark:text-red-400' : 'text-neutral-700 dark:text-neutral-300'}>
                   {log}
                 </span>
               </div>

@@ -15,8 +15,6 @@ export const setKey = (req, res) => {
   console.log(`SET: ${key} = ${JSON.stringify(value)}`);
   res.status(201).json({ message: 'Key set successfully', ...result });
 };
-
-
 // Retrieve the value for a given key
 export const getKey = (req, res) => {
   const { key } = req.params;
