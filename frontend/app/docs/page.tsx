@@ -120,6 +120,12 @@ export default function DocsPage() {
                                             gradient: 'from-yellow-500 to-orange-500',
                                         },
                                         {
+                                            icon: <Layers className="h-6 w-6" />,
+                                            title: 'Dual Data Structures',
+                                            description: 'Support for both standard Key-Value pairs and FIFO Queues for message processing.',
+                                            gradient: 'from-indigo-500 to-purple-500',
+                                        },
+                                        {
                                             icon: <Shield className="h-6 w-6" />,
                                             title: 'Crash Recovery',
                                             description: 'Automatic state reconstruction through Write-Ahead Log replay on restart.',
@@ -132,9 +138,15 @@ export default function DocsPage() {
                                             gradient: 'from-purple-500 to-pink-500',
                                         },
                                         {
+                                            icon: <Copy className="h-6 w-6" />,
+                                            title: 'ROM Persistence',
+                                            description: 'Atomic snapshots (db.json) for fast recovery and reduced log replay time.',
+                                            gradient: 'from-pink-500 to-rose-500',
+                                        },
+                                        {
                                             icon: <Code className="h-6 w-6" />,
-                                            title: 'RESTful API',
-                                            description: 'Simple HTTP interface for all CRUD operations with JSON support.',
+                                            title: 'Full REST API',
+                                            description: 'Simple HTTP interface for all KV and Queue operations with JSON support.',
                                             gradient: 'from-emerald-500 to-teal-500',
                                         },
                                     ].map((feature, idx) => (
@@ -214,141 +226,125 @@ npm run dev`}
                                     API Reference
                                 </h2>
 
-                                <div className="space-y-8">
-                                    {/* Set Key */}
-                                    <div className="border-l-4 border-blue-500 pl-6">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <span className="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-md">POST</span>
-                                            <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv</code>
-                                        </div>
-                                        <p className="text-neutral-700 dark:text-neutral-300 mb-4">Create or update a key-value pair.</p>
-                                        <div className="space-y-3">
-                                            <div>
-                                                <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Request Body:</h4>
-                                                <CodeBlock
-                                                    id="post-request"
-                                                    language="json"
-                                                    code={`{
+                                <div className="space-y-12">
+                                    {/* KV Store API */}
+                                    <div>
+                                        <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+                                            Key-Value Store
+                                        </h3>
+                                        <div className="space-y-8">
+                                            {/* Get All */}
+                                            <div className="border-l-4 border-purple-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-purple-500 text-white text-xs font-bold rounded-md">GET</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">Retrieve all key-value pairs.</p>
+                                            </div>
+
+                                            {/* Set Key */}
+                                            <div className="border-l-4 border-blue-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-md">POST</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">Create or update a key-value pair.</p>
+                                                <div className="space-y-3">
+                                                    <div>
+                                                        <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Request Body:</h4>
+                                                        <CodeBlock
+                                                            id="post-request"
+                                                            language="json"
+                                                            code={`{
   "key": "user:101",
-  "value": {
-    "name": "Alice",
-    "role": "admin"
-  }
+  "value": { "name": "Alice", "role": "admin" }
 }`}
-                                                />
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Response:</h4>
-                                                <CodeBlock
-                                                    id="post-response"
-                                                    language="json"
-                                                    code={`{
-  "message": "Key set successfully",
-  "key": "user:101",
-  "value": {
-    "name": "Alice",
-    "role": "admin"
-  }
-}`}
-                                                />
+
+                                            {/* Get Key */}
+                                            <div className="border-l-4 border-emerald-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-md">GET</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv/:key</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">Retrieve the value for a specific key.</p>
+                                            </div>
+
+                                            {/* Delete Key */}
+                                            <div className="border-l-4 border-red-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-md">DELETE</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv/:key</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">Delete a key-value pair.</p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Get Key */}
-                                    <div className="border-l-4 border-emerald-500 pl-6">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <span className="px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-md">GET</span>
-                                            <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv/:key</code>
-                                        </div>
-                                        <p className="text-neutral-700 dark:text-neutral-300 mb-4">Retrieve the value for a specific key.</p>
-                                        <div className="space-y-3">
-                                            <div>
-                                                <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Example:</h4>
-                                                <CodeBlock
-                                                    id="get-example"
-                                                    language="bash"
-                                                    code={`curl http://localhost:4000/api/kv/user:101`}
-                                                />
+                                    {/* Queue API */}
+                                    <div>
+                                        <h3 className="text-xl font-bold text-neutral-900 dark:text-white mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-2">
+                                            Message Queues
+                                        </h3>
+                                        <div className="space-y-8">
+                                            {/* List Queues */}
+                                            <div className="border-l-4 border-purple-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-purple-500 text-white text-xs font-bold rounded-md">GET</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/queue</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">List all active queues.</p>
                                             </div>
-                                            <div>
-                                                <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Response:</h4>
-                                                <CodeBlock
-                                                    id="get-response"
-                                                    language="json"
-                                                    code={`{
-  "key": "user:101",
-  "value": {
-    "name": "Alice",
-    "role": "admin"
-  }
+
+                                            {/* Enqueue */}
+                                            <div className="border-l-4 border-blue-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-md">POST</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/queue/:name/enqueue</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">Add an item to the end of a queue.</p>
+                                                <div className="space-y-3">
+                                                    <div>
+                                                        <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Request Body:</h4>
+                                                        <CodeBlock
+                                                            id="enqueue-request"
+                                                            language="json"
+                                                            code={`{
+  "value": { "eventId": "evt_123", "type": "signup" }
 }`}
-                                                />
+                                                        />
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    {/* Update Key */}
-                                    <div className="border-l-4 border-yellow-500 pl-6">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <span className="px-3 py-1 bg-yellow-500 text-white text-xs font-bold rounded-md">PUT</span>
-                                            <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv/:key</code>
-                                        </div>
-                                        <p className="text-neutral-700 dark:text-neutral-300 mb-4">Update an existing key's value.</p>
-                                        <div className="space-y-3">
-                                            <div>
-                                                <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Request Body:</h4>
-                                                <CodeBlock
-                                                    id="put-request"
-                                                    language="json"
-                                                    code={`{
-  "value": {
-    "name": "Alice",
-    "role": "superadmin"
-  }
-}`}
-                                                />
+                                            {/* Dequeue */}
+                                            <div className="border-l-4 border-orange-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-orange-500 text-white text-xs font-bold rounded-md">POST</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/queue/:name/dequeue</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">Remove and return the first item from a queue.</p>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    {/* Delete Key */}
-                                    <div className="border-l-4 border-red-500 pl-6">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <span className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-md">DELETE</span>
-                                            <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv/:key</code>
-                                        </div>
-                                        <p className="text-neutral-700 dark:text-neutral-300 mb-4">Delete a key-value pair.</p>
-                                        <div className="space-y-3">
-                                            <div>
-                                                <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Example:</h4>
-                                                <CodeBlock
-                                                    id="delete-example"
-                                                    language="bash"
-                                                    code={`curl -X DELETE http://localhost:4000/api/kv/user:101`}
-                                                />
+                                            {/* Peek */}
+                                            <div className="border-l-4 border-emerald-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-emerald-500 text-white text-xs font-bold rounded-md">GET</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/queue/:name/peek</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">View the first item without removing it.</p>
                                             </div>
-                                        </div>
-                                    </div>
 
-                                    {/* Get All */}
-                                    <div className="border-l-4 border-purple-500 pl-6">
-                                        <div className="flex items-center gap-3 mb-3">
-                                            <span className="px-3 py-1 bg-purple-500 text-white text-xs font-bold rounded-md">GET</span>
-                                            <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/kv</code>
-                                        </div>
-                                        <p className="text-neutral-700 dark:text-neutral-300 mb-4">Retrieve all key-value pairs.</p>
-                                        <div className="space-y-3">
-                                            <div>
-                                                <h4 className="text-sm font-semibold text-neutral-700 dark:text-neutral-300 mb-2">Response:</h4>
-                                                <CodeBlock
-                                                    id="getall-response"
-                                                    language="json"
-                                                    code={`[
-  ["user:101", {"name": "Alice", "role": "admin"}],
-  ["user:102", {"name": "Bob", "role": "user"}]
-]`}
-                                                />
+                                            {/* Queue Size */}
+                                            <div className="border-l-4 border-cyan-500 pl-6">
+                                                <div className="flex items-center gap-3 mb-3">
+                                                    <span className="px-3 py-1 bg-cyan-500 text-white text-xs font-bold rounded-md">GET</span>
+                                                    <code className="text-lg font-mono text-neutral-900 dark:text-white">/api/queue/:name/size</code>
+                                                </div>
+                                                <p className="text-neutral-700 dark:text-neutral-300 mb-4">Get the number of items in a queue.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -361,15 +357,41 @@ npm run dev`}
                             <div className="bg-white/60 dark:bg-neutral-900/60 backdrop-blur-sm border border-neutral-200 dark:border-neutral-800 rounded-2xl p-8">
                                 <h2 className="text-3xl font-bold text-neutral-900 dark:text-white mb-6 flex items-center gap-3">
                                     <Layers className="h-8 w-8 text-cyan-500" />
-                                    Architecture
+                                    How It Works & Architecture
                                 </h2>
 
-                                <div className="space-y-6">
+                                <div className="space-y-8">
                                     <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                                        ScaleDB follows a layered architecture that separates concerns between the API layer, storage engine, and persistence layer.
+                                        ScaleDB implements a layered architecture that mimics production database internals. It separates the API layer,
+                                        in-memory storage engine, and on-disk persistence layer to ensure high performance and durability.
                                     </p>
 
-                                    <div className="bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 font-mono text-sm">
+                                    {/* Core Concepts Grid */}
+                                    <div className="grid md:grid-cols-3 gap-6">
+                                        <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900 rounded-xl p-5">
+                                            <h3 className="font-bold text-blue-900 dark:text-blue-100 mb-2">Write-Ahead Log (WAL)</h3>
+                                            <p className="text-sm text-blue-800 dark:text-blue-200 leading-relaxed">
+                                                Every write operation is logged to an append-only file <strong>before</strong> it interacts with the in-memory store.
+                                                This ensures that even if the process crashes, the data exists on disk.
+                                            </p>
+                                        </div>
+                                        <div className="bg-purple-50 dark:bg-purple-950/20 border border-purple-100 dark:border-purple-900 rounded-xl p-5">
+                                            <h3 className="font-bold text-purple-900 dark:text-purple-100 mb-2">ROM Persistence</h3>
+                                            <p className="text-sm text-purple-800 dark:text-purple-200 leading-relaxed">
+                                                Periodic snapshots of the entire database state are saved to <code>db.json</code>. This enables faster recovery
+                                                by loading the snapshot first and only replaying logs since the last checkpoint.
+                                            </p>
+                                        </div>
+                                        <div className="bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900 rounded-xl p-5">
+                                            <h3 className="font-bold text-emerald-900 dark:text-emerald-100 mb-2">Crash Recovery</h3>
+                                            <p className="text-sm text-emerald-800 dark:text-emerald-200 leading-relaxed">
+                                                On startup, the system loads the ROM snapshot and then replays valid transactions from the WAL to reconstruct
+                                                the exact state of the database before the crash.
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    <div className="bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6 font-mono text-sm overflow-x-auto">
                                         <pre className="text-neutral-700 dark:text-neutral-300">
                                             {`┌─────────────────────────────────────┐
 │   Client (Browser / API Client)    │
@@ -379,45 +401,73 @@ npm run dev`}
 ┌─────────────────────────────────────┐
 │      HTTP API (Express.js)          │
 │  • POST /api/kv                     │
-│  • GET /api/kv/:key                 │
-│  • PUT /api/kv/:key                 │
-│  • DELETE /api/kv/:key              │
+│  • POST /api/queue/:name/enqueue    │
 └──────────────┬──────────────────────┘
                │
                ▼
 ┌─────────────────────────────────────┐
-│   In-Memory Key-Value Store         │
-│  • Fast O(1) lookups                │
-│  • JavaScript Map/Object            │
+│   In-Memory Store (RAM)             │
+│  • KV Map: { key: value }           │
+│  • Queues: { name: [item1, ...] }   │
 └──────────────┬──────────────────────┘
                │
                ▼
-┌─────────────────────────────────────┐
-│   Write-Ahead Log (Disk)            │
-│  • Append-only file                 │
-│  • Crash recovery                   │
-└─────────────────────────────────────┘`}
+┌─────────────────────────────────────┐      ┌─────────────────────────┐
+│   Write-Ahead Log (wal.log)         │      │   ROM Snapshot (db.json)│
+│  • Append-only persistence          │ <──> │  • Periodic Full Save   │
+│  • Replay on crash                  │      │  • Quick Loader         │
+└─────────────────────────────────────┘      └─────────────────────────┘`}
                                         </pre>
                                     </div>
 
                                     <div className="grid md:grid-cols-2 gap-6">
-                                        <div className="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
-                                            <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-3">Write Flow</h3>
-                                            <ol className="space-y-2 text-sm text-blue-800 dark:text-blue-200">
-                                                <li>1. Client sends PUT/POST request</li>
-                                                <li>2. Operation appended to WAL</li>
-                                                <li>3. In-memory state updated</li>
-                                                <li>4. Success response returned</li>
+                                        <div className="bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6">
+                                            <h3 className="font-semibold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
+                                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-blue-500 text-white text-xs">1</span>
+                                                Write Flow
+                                            </h3>
+                                            <ol className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
+                                                <li className="flex gap-2">
+                                                    <span className="font-mono text-blue-600 dark:text-blue-400">WAL:</span>
+                                                    Log operation with <span className="bg-neutral-100 dark:bg-neutral-700 px-1 rounded">STARTED</span> status.
+                                                </li>
+                                                <li className="flex gap-2">
+                                                    <span className="font-mono text-blue-600 dark:text-blue-400">RAM:</span>
+                                                    Update the in-memory data structures (Map or Array).
+                                                </li>
+                                                <li className="flex gap-2">
+                                                    <span className="font-mono text-blue-600 dark:text-blue-400">ROM:</span>
+                                                    Async task periodically saves full state to disk.
+                                                </li>
+                                                <li className="flex gap-2">
+                                                    <span className="font-mono text-blue-600 dark:text-blue-400">WAL:</span>
+                                                    Mark operation as <span className="bg-neutral-100 dark:bg-neutral-700 px-1 rounded">COMMITTED</span>.
+                                                </li>
                                             </ol>
                                         </div>
 
-                                        <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl p-6">
-                                            <h3 className="font-semibold text-emerald-900 dark:text-emerald-100 mb-3">Recovery Flow</h3>
-                                            <ol className="space-y-2 text-sm text-emerald-800 dark:text-emerald-200">
-                                                <li>1. Server starts/restarts</li>
-                                                <li>2. WAL file read line-by-line</li>
-                                                <li>3. Operations replayed in order</li>
-                                                <li>4. In-memory store rebuilt</li>
+                                        <div className="bg-neutral-50 dark:bg-neutral-800/50 border border-neutral-200 dark:border-neutral-800 rounded-xl p-6">
+                                            <h3 className="font-semibold text-neutral-900 dark:text-white mb-3 flex items-center gap-2">
+                                                <span className="flex items-center justify-center w-6 h-6 rounded-full bg-emerald-500 text-white text-xs">2</span>
+                                                Recovery Flow
+                                            </h3>
+                                            <ol className="space-y-3 text-sm text-neutral-600 dark:text-neutral-400">
+                                                <li className="flex gap-2">
+                                                    <span className="font-mono text-emerald-600 dark:text-emerald-400">LOAD:</span>
+                                                    Read latest snapshot from <code>db.json</code> into RAM.
+                                                </li>
+                                                <li className="flex gap-2">
+                                                    <span className="font-mono text-emerald-600 dark:text-emerald-400">SCAN:</span>
+                                                    Read <code>wal.log</code> line-by-line.
+                                                </li>
+                                                <li className="flex gap-2">
+                                                    <span className="font-mono text-emerald-600 dark:text-emerald-400">FILTER:</span>
+                                                    Identify transactions not present in the snapshot.
+                                                </li>
+                                                <li className="flex gap-2">
+                                                    <span className="font-mono text-emerald-600 dark:text-emerald-400">REPLAY:</span>
+                                                    Execute valid uncommitted operations to restore state.
+                                                </li>
                                             </ol>
                                         </div>
                                     </div>
