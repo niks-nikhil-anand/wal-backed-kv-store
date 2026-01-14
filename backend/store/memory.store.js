@@ -12,7 +12,12 @@ function writeWAL(op) {
     fs.appendFileSync(WAL_FILE, JSON.stringify(op) + "\n");
 }
 
-export const db = {}
+// Database structure:
+// - Key-value pairs stored directly on db object
+// - Queues stored in db.queues object
+export const db = {
+    queues: {} // Queue storage: { queueName: [item1, item2, ...] }
+}
 
 // set a key-value pair
 export const set = (key, value) => {
